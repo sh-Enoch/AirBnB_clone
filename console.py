@@ -1,4 +1,4 @@
-#!usr/bin/python3
+#!/usr/bin/python3
 """Entry point of the interpreter."""
 import cmd
 
@@ -8,7 +8,7 @@ class HBNBCommand(cmd.Cmd):
 
     prompt = "(hbnb)"
 
-    def do_quit(self):
+    def do_quit(self, line):
         """Exit program."""
         return True
 
@@ -22,7 +22,7 @@ class HBNBCommand(cmd.Cmd):
             print("========================================")
             for cmd in self.get_names():
                 if cmd.startswith('do_'):
-                    print("{}".format(cmd[3:]), end="")
+                    print("{}".format(cmd[3:]), end=" ")
             print()
             print()
 
