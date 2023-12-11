@@ -2,6 +2,7 @@
 """Class BaseModel."""
 import uuid
 from datetime import datetime
+from filestorage import storage
 
 
 class BaseModel:
@@ -35,6 +36,8 @@ class BaseModel:
     def save(self):
         """Update datetime with current datetime."""
         self.updated_at = datetime.now()
+	self.storage()
+	
         return self.__dict__
 
     def to_dict(self):
