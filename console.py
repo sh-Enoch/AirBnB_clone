@@ -1,7 +1,7 @@
 #!/usr/bin/python3
 """Entry point of the interpreter."""
 import cmd
-
+from models.base_model  import BaseModel
 
 class HBNBCommand(cmd.Cmd):
     """Define class HBNBCommand."""
@@ -33,6 +33,33 @@ class HBNBCommand(cmd.Cmd):
 
     def emptyline(self):
         """Shouldn't execute anything on new line."""
+        pass
+
+    def do_create(self, className):
+        """Create a new instance of BaseModel."""
+        if className:
+            if className != "BaseModel":
+                print("class doesn't exist")
+            else:
+                new_instance = BaseModel()
+                new_instance.save()
+        else:
+            print("class name missing")
+    
+    def do_show(self):
+        """Print string represantation of an instance based on the class name and id."""
+        pass
+
+    def do_destroy(self):
+        """Delete an innstance based on the class name and id."""
+        pass
+
+    def do_all(self):
+        """Print all string represantation of all instaces."""
+        pass
+
+    def do_update(self):
+        """Update an instance based on the class name and id by adding or updting attribute."""
         pass
 
 
