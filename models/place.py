@@ -1,6 +1,6 @@
 #!usr/bin/pyhton3
 """Define class Place."""1
-from models.base_models import BaseModel
+from models.base_model import BaseModel
 
 
 class Place(BaseModel):

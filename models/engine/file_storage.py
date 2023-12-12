@@ -13,7 +13,7 @@ import os
 class FileStorage:
     """Define class FileStorage."""
 
-    __file_path = file_path
+    __file_path = "file.json"
     __objects = {}
 
     def all(self):
