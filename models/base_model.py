@@ -18,6 +18,7 @@ class BaseModel:
         else:
             self.name = args[0] if args else ""
             self.my_number = args[1] if len(args) > 1 else 0
+	    models.storage.new(self)
 
         self.id = str(uuid.uuid4())
         self.created_at = datetime.now()
