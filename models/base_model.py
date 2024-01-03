@@ -9,16 +9,16 @@ class BaseModel:
 
     def __init__(self, **kwargs):
         """Initialize class."""
-        d_format = "%Y-%m-%dT%H:%M:%S.%f"
-	if len(kwargs) != 0:
+        d = "%Y-%m-%dT%H:%M:%S.%f"
+        if len(kwargs) != 0:
             for key, value in kwargs.items():
                 if key == 'updated_at' or key == 'created_at':
-                     self.__dict__[key] = datetime.datetime.strptime(value, d_format)
+                    self.__dict__[key] = datetime.datetime.strptime(value, d)
                 else:
                     self.__dict__[key] = value
         else:
             self.id = uuid.uuid4()
-	    self.created_at = datetime.datetime.now()
+            self.created_at = datetime.datetime.now()
 
     def __str__(self):
         """Represent as string."""
