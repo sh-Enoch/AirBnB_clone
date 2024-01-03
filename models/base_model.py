@@ -1,51 +1,33 @@
 #!/usr/bin/python3
-"""Class BaseModel."""
+"""Define class BaseModel."""
+import datetime
 import uuid
-import models
-from datetime import datetime
-from filestorage import storage
 
 
 class BaseModel:
-    """Define class BaseModel."""
+    """BaseModel class."""
 
-    def __init__(self, *args, **kwargs):
-        """Initialize BaseModel class."""
-        if kwargs and len(kwargs) != 0:
-            for key, value in kwargs.items():
-                if key != "__class__":
-                    setattr(self, key, value)
-        else:
-            self.name = args[0] if args else ""
-            self.my_number = args[1] if len(args) > 1 else 0
-	    models.storage.new(self)
-
+    def __init__(self):
+        """Initialize class."""
         self.id = str(uuid.uuid4())
-        self.created_at = datetime.now()
-        self.updated_at = datetime.now()
-        if "created_at" in kwargs:
-            t = strptime(kwargs["created_at"], "%Y-%m-%d %H:%M:%S")
-            self.created_at = datetime.t
-        if "updated_at" in kwargs:
-            x = strptime(kwargs["updated_at"], "%Y-%m-%d %H:%M:%S")
-            self.updated_at = datetime.x
+        self.created_at = datetime.datetime.now()
+        self.updated_at = datetime.datetime.now()
 
     def __str__(self):
-        """Return a  simple representation of my class."""
-        val = type(self).__name__
-        return "[{} ({}) {}]".format(val, self.id, self.__dict__)
+        """Represent as string."""
+        c = type(self).__name__
+        return "[{}] ({}) {}".format(c, self.id, self.__dict__)
 
     def save(self):
-        """Update datetime with current datetime."""
-        self.updated_at = datetime.now()
-	models.storage.save()
-	
-        return self.__dict__
+        """Update."""
+        self.updated_at = datetime.datetime.now()
 
     def to_dict(self):
-        """Return a dictionary with all key/value."""
-        self.__dict__['__class__'] = type(self).__name__
-        my_dict = self.__dict__
-        my_dict['updated_at'] = datetime.now().isoformat()
-        my_dict['created_at'] = datetime.now().isoformat()
-        return my_dict
+        """Convert to dictionary."""
+        this_dict = self.__dict__
+        this_dict['__class__'] = type(self).__name__
+        for key, value in this_dict.items():
+            this_dict["updated_at"] = datetime.datetime.now().isoformat()
+            this_dict["created_at"] = datetime.datetime.now().isoformat()
+
+        return this_dict
