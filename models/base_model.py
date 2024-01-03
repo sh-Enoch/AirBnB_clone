@@ -2,6 +2,7 @@
 """Define class BaseModel."""
 import datetime
 import uuid
+import models
 
 
 class BaseModel:
@@ -19,6 +20,7 @@ class BaseModel:
         else:
             self.id = uuid.uuid4()
             self.created_at = datetime.datetime.now()
+            models.storage.new(self)
 
     def __str__(self):
         """Represent as string."""
@@ -28,6 +30,7 @@ class BaseModel:
     def save(self):
         """Update."""
         self.updated_at = datetime.datetime.now()
+        models.storage.save()
 
     def to_dict(self):
         """Convert to dictionary."""
