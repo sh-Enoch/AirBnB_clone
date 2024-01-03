@@ -7,11 +7,18 @@ import uuid
 class BaseModel:
     """BaseModel class."""
 
-    def __init__(self):
+    def __init__(self, **kwargs):
         """Initialize class."""
-        self.id = str(uuid.uuid4())
-        self.created_at = datetime.datetime.now()
-        self.updated_at = datetime.datetime.now()
+        d_format = "%Y-%m-%dT%H:%M:%S.%f"
+	if len(kwargs) != 0:
+            for key, value in kwargs.items():
+                if key == 'updated_at' or key == 'created_at':
+                     self.__dict__[key] = datetime.datetime.strptime(value, d_format)
+                else:
+                    self.__dict__[key] = value
+        else:
+            self.id = uuid.uuid4()
+	    self.created_at = datetime.datetime.now()
 
     def __str__(self):
         """Represent as string."""
@@ -26,8 +33,7 @@ class BaseModel:
         """Convert to dictionary."""
         this_dict = self.__dict__
         this_dict['__class__'] = type(self).__name__
-        for key, value in this_dict.items():
-            this_dict["updated_at"] = datetime.datetime.now().isoformat()
-            this_dict["created_at"] = datetime.datetime.now().isoformat()
+        this_dict["updated_at"] = datetime.datetime.now().isoformat()
+        this_dict["created_at"] = datetime.datetime.now().isoformat()
 
         return this_dict
