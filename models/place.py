@@ -1,5 +1,5 @@
 #!usr/bin/pyhton3
-"""Define class Place."""1
+"""Define class Place."""
 from models.base_model import BaseModel
 
 
