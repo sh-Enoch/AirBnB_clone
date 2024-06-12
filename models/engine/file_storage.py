@@ -1,43 +1,40 @@
-#!/usr/bin/python3
-"""Class FileStorage."""
+"""File Storage."""
 import json
 from models.base_model import BaseModel
-import models
 
 
-class FileStorage:
-    """Defines the class FileStorage."""
+class FileStorage():
+    """Serialize  instances to a JSON file and deserializes."""
 
     __file_path = "file.json"
     __objects = {}
 
-    def all(self, cls=None):
-        """Return the dictionary __objects."""
+    def all(self):
+        """Return dictionary of objects."""
         return self.__objects
 
     def new(self, obj):
-        """Set in __objects the obj with key <class name>.id."""
-        key = "{}.{}".format(obj.__class__.__name__, obj.id)
-        self.__objects[key] = obj
+        """Set in __objects the obj with key <class name>.id>."""
+        class_name = obj.__class__.__name__
+        obj_key = "{}.{}".format(class_name, obj.id)
+        self.__objects[obj_key] = obj
 
     def save(self):
-        """Serialize __objects  to json file_path."""
-        this_dict = {}
+        """Serialize __objects to the file."""
+        ser_obj = {}
+        with open(FileStorage.__file_path, 'w') as f:
+            for key, value in FileStorage.__objects.items():
+                ser_obj[key] = value.to_dict()
 
-        for key in self.__objects:
-            this_dict[key] = self.__objects[key].to_dict()
-        with open(self.__file_path, 'w') as file:
-            json.dump(this_dict, file)
+            json.dump(ser_obj, f)
 
     def reload(self):
-        """Deserialize the Json file to __objects."""
+        """Deserialize the json file to __objects if file exists."""
         try:
-            with open(self.__file_path, 'r', encoding='UTF8') as file:
-                this_new_dict = json.load(file)
+            with open(FileStorage.__file_path, 'r') as f:
+                data = json.load(f)
+                for key, val in data.items():
+                    self.__objects[key] = eval(val['__class__'])(**val)
 
-            for value in this_new_dict.values():
-                class_name = value["__class__"]
-                del value["__class__"]
-                self.new(eval(class_name)(**value))
         except FileNotFoundError:
             pass
