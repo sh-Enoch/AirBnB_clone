@@ -34,10 +34,10 @@ class HBNBCommand(cmd.Cmd):
         print id.
         """
         if not arg:
-            print("** class name missing. **")
+            print("** class name missing **")
             return
         if arg != "BaseModel":
-            print("** class doesn't exist. **")
+            print("** class doesn't exist **")
         else:
             arg = BaseModel()
             storage.new(arg)
