@@ -47,7 +47,7 @@ class HBNBCommand(cmd.Cmd):
     def do_show(self, lines):
         """Print string representation of  an instance bsed on the cass name and id."""
         if not lines:
-            print(" ** class name missing **")
+            print("** class name missing **")
         if lines:
             arg = lines.split()
             if arg[0] != "BaseModel":
@@ -91,7 +91,7 @@ class HBNBCommand(cmd.Cmd):
         """Print all String rep of all instances."""
         if arg:
             if arg[0] != "BaseModel":
-                pass
+                print("** class doesn't exist **")
         else:
             for key, value in storage._FileStorage__objects.items():
                 print(storage._FileStorage__objects[key])
