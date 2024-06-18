@@ -140,7 +140,7 @@ class HBNBCommand(cmd.Cmd):
                 setattr(class_name, attribute_name, attribute_value)
                 storage.save()
             else:
-                print("** no instance found")
+                print("** no instance found **")
                 return
         else:
             print("** class name missing **")
