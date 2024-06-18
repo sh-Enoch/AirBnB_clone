@@ -72,12 +72,14 @@ class HBNBCommand(cmd.Cmd):
             print("** class name missing **")
         if lines:
             arg = lines.split()
-            if arg[0] != "BaseModel":
-                print("** class doesn't exist **")
+            print(len(arg))
+            if len(arg) == 1:
+                if arg[0] != "BaseModel":
+                    print("** class doesn't exist **")
+
             else:
-                if not arg[1]:
-                    print("** instance id missing **")
-                else:
+                instance_id = arg[1]
+                if instance_id:
                     class_name =  arg[0]
                     instance_id = arg[1]
                     key = "{}.{}".format(class_name, instance_id)
@@ -86,6 +88,8 @@ class HBNBCommand(cmd.Cmd):
                         storage.save()
                     except KeyError:
                         print("** no instance found **")
+                else:
+                    print("** instance not found **")
 
     def do_all(self, arg):
         """Print all String rep of all instances."""
