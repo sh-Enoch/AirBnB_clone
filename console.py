@@ -76,13 +76,13 @@ class HBNBCommand(cmd.Cmd):
             if args_len == 1:
                 class_name = arg[0]
                 if class_name == "BaseModel":
-                    print("** instance id missing**")
+                    print("** instance id missing **")
                 else:
                     print("** class doesn't exist **")
             else:
                 class_name = arg[0]
                 instance_id = arg[1]
-                if class_name != "BaseModel":
+                if class_name != "BaseModel"::
                     print("** class doesn't exist **")
                 else:
                     key = "{}.{}".format(class_name, instance_id)
