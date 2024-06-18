@@ -107,30 +107,43 @@ class HBNBCommand(cmd.Cmd):
         """Updatesan insatance based on the class name and id."""
         if lines:
             arg = lines.split()
-            if arg[0] == "BaseModel":
-                if len(arg) < 2:
-                    print("** instance id missing **")
-                else:
-                    class_name = arg[0]
-                    instance_id = arg[1]
-                    key = "{}.{}".format(class_name, instance_id)
-                    try:
-                        storage._FileStorage__objects[key]
-                        if arg[2]:
-                            attribute_name = arg[2]
-                            if arg[3]:
-                                attribute_value = arg[3]
-                                setattr(class_name, attribute_name, attribute_value)
-                            else:
-                                print("** value missing **")
-                        else:   
-                            print("** attribute name missing **")
-                    except KeyError:
-                        print("** no instance found **")
-            else:
+            num_args =  len(arg)
+            class_name = arg[0]
+            if class_name != "BaseModel":
                 print("** class doesn't exist **")
+                return
+
+            if num_args < 2:
+                print("** instance id missing **")
+                return
+            else:
+                #id present
+                instance_id = arg[1]
+
+            if num_args < 3:
+                # no attribute name
+                print("** attribute name missing **")
+                return
+            else:
+                # attribute name
+                attribute_name = arg[2]
+
+            if num_args < 4:
+                # no attribute value
+                print("** value missing **")
+                return
+            else:
+                attribute_value = arg[3]
+
+            key = "{}.{}".format(class_name, instance_id)
+            if key in storage._FileStorage__objects.keys():
+                setattr(class_name, attribute_name, attribute_value)
+                storage.save()
+            else:
+                print("** no instance found")
+                return
         else:
             print("** class name missing **")
-
+        
 if __name__ == "__main__":
     HBNBCommand().cmdloop()
