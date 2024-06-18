@@ -89,9 +89,14 @@ class HBNBCommand(cmd.Cmd):
 
     def do_all(self, arg):
         """Print all String rep of all instances."""
+        arg = arg.split()
         if arg:
+            print(arg[0])
             if arg[0] != "BaseModel":
                 print("** class doesn't exist **")
+            else:
+                for key, value in storage._FileStorage__objects.items():
+                    print(storage._FileStorage__objects[key])
         else:
             for key, value in storage._FileStorage__objects.items():
                 print(storage._FileStorage__objects[key])
