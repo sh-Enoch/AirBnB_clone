@@ -82,7 +82,7 @@ class HBNBCommand(cmd.Cmd):
             else:
                 class_name = arg[0]
                 instance_id = arg[1]
-                if class_name != "BaseModel"::
+                if class_name != "BaseModel":
                     print("** class doesn't exist **")
                 else:
                     key = "{}.{}".format(class_name, instance_id)
