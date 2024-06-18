@@ -77,13 +77,16 @@ class HBNBCommand(cmd.Cmd):
                 print("** instance id missing **")
             else:
                 class_name = arg[0]
-                instance_id = arg[1]
-                key = "{}.{}".format(class_name, instance_id)
-                try:
-                    del storage._FileStorage__objects[key]
-                    storage.save()
-                except KeyError:
-                    print("** no instance found **")
+                if class_name != "BaseModel":
+                    print("** class doesn't exist **")
+                else:
+                    instance_id = arg[1]
+                    key = "{}.{}".format(class_name, instance_id)
+                    try:
+                        del storage._FileStorage__objects[key]
+                        storage.save()
+                    except KeyError:
+                        print("** no instance found **")
             
 
     def do_all(self, arg):
