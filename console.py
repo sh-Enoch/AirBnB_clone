@@ -74,12 +74,14 @@ class HBNBCommand(cmd.Cmd):
             arg = lines.split()
             args_len = len(arg)
             if args_len == 1:
-                print("** instance id missing **")
+                class_name = arg[0]
+                if class_name != "BaseModel":
+                    print("** class doesn't exist **")
+                else:
+                    print("** instance id missing **")
             else:
                 class_name = arg[0]
                 instance_id = arg[1]
-                if class_name != "BaseModel":
-                    print("** class doesn't exist **")
                 key = "{}.{}".format(class_name, instance_id)
                 try:
                     del storage._FileStorage__objects[key]
