@@ -137,6 +137,7 @@ class HBNBCommand(cmd.Cmd):
 
             key = "{}.{}".format(class_name, instance_id)
             if key in storage._FileStorage__objects.keys():
+                class_name = globals()[class_name]
                 setattr(class_name, attribute_name, attribute_value)
                 storage.save()
             else:
