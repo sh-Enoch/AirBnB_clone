@@ -139,7 +139,7 @@ class HBNBCommand(cmd.Cmd):
             if key in storage._FileStorage__objects.keys():
                 class_name = globals()[class_name]
                 setattr(class_name, attribute_name, attribute_value)
-                storage.save()
+                class_name.save()
             else:
                 print("** no instance found **")
                 return
